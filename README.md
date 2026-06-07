@@ -5,7 +5,7 @@ R implementation of the Split-Group Energy Test. It corrects selection-induced b
 # Honest Adaptive Energy Testing
 
 This repository contains the official R implementation and simulation environment for the paper:  
-**"Honest Adaptive Energy Testing: A Split-Group Framework to Correct Selection Bias in Multi-Sample Comparisons"**
+**"Honest Adaptive Energy Testing: A Partitioned Inference Protocol to Correct Selection-Induced Bias"**
 
 ## Overview
 Standard non-parametric energy statistics often require tuning parameters (such as the distance exponent $\alpha$) to maximize power. However, selecting these parameters on a full dataset leads to a significant "Selection Bias," inflating Type I error rates.
