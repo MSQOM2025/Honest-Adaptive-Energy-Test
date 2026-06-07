@@ -5,8 +5,7 @@
 #
 # ==============================================================================
 # For absolute reproducibility of the entire script run
-set.seed(20250815) # Using today's date (YYYYMMDD format)
-#This is good practice, but not strictly necessary because of the `furrr_options(seed = TRUE)
+set.seed(20250815)
 
 # 1. SETUP
 required_packages <- c("tidyverse", "future", "furrr", "energy")
@@ -38,7 +37,6 @@ generate_data <- function(k, n_per_group, means, sds, dist_type = "normal") {
 }
 
 # The novel hold-out permutation test
-# --- REPLACE your old fe_split_test function with this new version ---
 
 fe_split_test <- function(data, split_ratio) {
   # Step 1: Data Partitioning with a flexible ratio
@@ -74,7 +72,6 @@ fe_split_test <- function(data, split_ratio) {
 }
 
 # Wrapper for the simulation scenarios
-# --- REPLACE your old run_scenario_fe function with this new version ---
 
 run_scenario_fe <- function(params) {
   # This part is the same
@@ -86,11 +83,8 @@ run_scenario_fe <- function(params) {
   p_values_list <- replicate(SIM_REPLICATIONS, {
     sim_data <- generate_data(k = 4, n_per_group = rep(params$n, 4), means = means, sds = sds, dist_type = params$dist_type)
     
-    # --- The only change is here: Pass the split_ratio to the test ---
     fe_split_p_value <- fe_split_test(sim_data, split_ratio = params$split_ratio)
     
-    # We still run the standard test if it's not a split-ratio experiment
-    # For the split-ratio experiment, we only need the power of our method.
     if (params$split_ratio == 0.5) { # Only run the full test for the main comparison
         disco_full_p_value <- disco(sim_data$observation, factors = sim_data$group, R = PERMUTATIONS)$p.value
     } else {
@@ -110,8 +104,6 @@ run_scenario_fe <- function(params) {
       n_sims = SIM_REPLICATIONS
     )
 }
-
-# --- REPLACE your old SETUP AND RUN STUDY block (Section 4) with this ---
 
 # 4. SETUP AND RUN STUDY
 num_cores <- 3
@@ -154,9 +146,6 @@ cat("Simulation study finished. Total time:", format(end_time - start_time), "\n
 final_results_table <- bind_rows(sim_results)
 print(final_results_table)
 write_csv(final_results_table, "simulation_results_fe_split_final_EXTENDED.csv") # New file name
-
-# --- The PLOTTING block (Figures 1-3) can remain the same. ---
-# It will automatically work on the subset of the data with split_ratio = 0.5
 
 # ==========================================================
 #  NEW PLOT: Power vs. Split Ratio (The key new figure)
