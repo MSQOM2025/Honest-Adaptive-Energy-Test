@@ -1,28 +1,28 @@
-# Honest-Adaptive-Energy-Test
-R implementation of the Split-Group Energy Test. It corrects selection-induced bias in non-parametric k-sample testing through an honest, sample-splitting inference framework.
+# Honest Adaptive Energy Testing for Equality of Multivariate Distributions: A Partitioned Inference Protocol
 
+This repository provides the complete, reproducible R implementation and replication code for the paper:
+> Salehi, M. (2026) Honest Adaptive Energy Testing for Equality of Multivariate Distributions: A Partitioned Inference Protocol.
 
-# Honest Adaptive Energy Testing
+---
 
-This repository contains the official R implementation and simulation environment for the paper:  
-**"Honest Adaptive Energy Testing: A Partitioned Inference Protocol to Correct Selection-Induced Bias"**
+## Overview of the Methodology
+Distance-based energy statistics—specifically the Distance Components (DISCO) framework—depend fundamentally on the distance exponent alpha in (0, 2]. Selecting this structural parameter adaptively on the full sample breaks label exchangeability under the sharp null hypothesis, leading to severe Type I error inflation.
 
-## Overview
-Standard non-parametric energy statistics often require tuning parameters (such as the distance exponent $\alpha$) to maximize power. However, selecting these parameters on a full dataset leads to a significant "Selection Bias," inflating Type I error rates.
+This repository provides:
+1. F_{E,\mathrm{split}}$ Protocol: The foundational single-split permutation test guaranteeing finite-sample validity under H_0.
+2. $F_{E,\mathrm{multi}}$ Protocol: The multi-split aggregation framework combining split-specific $p$-values via the Cauchy combination test (Liu & Xie, 2020), which eliminates partition variability and recovers over 95% of testing efficiency.
 
-Our proposed **Split-Group Energy Test ($F_{E,split}$)** provides a rigorous framework for "Honest Inference" by decoupling parameter selection (on a discovery set) from significance testing (on an independent inference set).
+---
 
-## Key Results
-- Selection Bias Correction: We demonstrate that naive adaptive testing inflates Type I error to ~11.7%, while our framework maintains the nominal 5% level.
-- Power Recovery: Our method recovers >80% of the statistical power in moderate-to-large sample regimes ($n \ge 150$).
+## Repository Structure
+- `run_definitive_honest_energy_simulations.R`: Complete factorial Monte Carlo simulation study across dimensions d in {10, 50}, sample sizes  in {30, 60, 100}, and diverse distributional geometries (Gaussian, Student's t_3, and heavy-tailed Cauchy).
+- `run_real_golub_multisplit.R`: Multi-split sensitivity analysis on the high-dimensional Golub leukemia microarray dataset (p = 3051, N = 38).
+- `run_multisplit_case_study.R`: Multi-split sensitivity analysis on the multi-group oncology cohort (k = 3, N = 150, p = 100).
+- `definitive_simulation_results.csv`: Precomputed simulation results across 24 factorial scenarios (1000 replications, 500 permutations, 50 splits per run).
 
-## File Structure
-- `simulation_honest_adaptive_tuning.R`: Stress-test simulation for $n=150$ with adaptive $\alpha$ selection.
-- `simulation_benchmark_fixed_power.R`: Benchmark simulations for $n \in \{30, 60, 100\}$ with fixed $\alpha=1$.
-- `make_plots_fe_split.R`: R script to reproduce the figures presented in the paper.
-- `/results`: Contains `.csv` output files from the Monte Carlo simulations.
+---
 
-## Installation & Requirements
-The code is written in R and requires the following packages:
+## Dependencies
+The code requires R (version > 4.2.0) and the following CRAN packages:
 ```R
-install.packages(c("tidyverse", "energy", "furrr", "future"))
+install.packages(c("tidyverse", "energy", "mvtnorm", "furrr", "future", "parallel"))
