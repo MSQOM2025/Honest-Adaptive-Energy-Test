@@ -23,7 +23,7 @@ This repository provides:
 ---
 
 ## Dependencies
-The code requires R (version > 4.2.0) and the following CRAN packages:
+The code requires R (version $\ge 4.2.0$) and the following CRAN packages:
 
 install.packages(c("tidyverse", "energy", "mvtnorm", "furrr", "future", "parallel"))
 
