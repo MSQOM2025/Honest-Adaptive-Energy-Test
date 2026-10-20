@@ -24,5 +24,11 @@ This repository provides:
 
 ## Dependencies
 The code requires R (version > 4.2.0) and the following CRAN packages:
-```R
+
 install.packages(c("tidyverse", "energy", "mvtnorm", "furrr", "future", "parallel"))
+
+---
+
+## Reproducibility
+All scripts utilize the L'Ecuyer-CMRG random number generator with fixed seeds (MAIN_SEED <- 110) to guarantee deterministic cross-platform reproducibility.
+```R
