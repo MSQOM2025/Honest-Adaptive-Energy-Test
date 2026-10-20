@@ -9,7 +9,7 @@ This repository provides the complete, reproducible R implementation and replica
 Distance-based energy statistics—specifically the Distance Components (DISCO) framework—depend fundamentally on the distance exponent alpha in (0, 2]. Selecting this structural parameter adaptively on the full sample breaks label exchangeability under the sharp null hypothesis, leading to severe Type I error inflation.
 
 This repository provides:
-1. F_{E,\mathrm{split}}$ Protocol: The foundational single-split permutation test guaranteeing finite-sample validity under H_0.
+1. F_{E,\mathrm{split}}$ Protocol: The foundational single-split permutation test guaranteeing finite-sample validity under $H_0$.
 2. $F_{E,\mathrm{multi}}$ Protocol: The multi-split aggregation framework combining split-specific $p$-values via the Cauchy combination test (Liu & Xie, 2020), which eliminates partition variability and recovers over 95% of testing efficiency.
 
 ---
